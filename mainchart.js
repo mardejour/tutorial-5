@@ -39,6 +39,7 @@ Promise.all([
   state.races = races.map(d => {
   return {
     geoid: +d.geoid,
+    Name: d.name,
     White: +d.white_alone,
     Black: +d.black_alone,
     Asian: +d.asian_all,
@@ -62,7 +63,6 @@ function init() {
   const colors = ["#4682b4", "#E25098", "#990066"];
   const hRaces = ["White", "Latino", "Asian", "Black", "Other"];
   var raceColors = d3.scaleOrdinal(d3.schemePastel1).domain(hRaces);
-  console.log(raceColors(0));
   const legendText = ["> 10 million", "> 1 million", "> 100,000"];
 
   // create an svg element in our main `d3-container` element
@@ -91,12 +91,12 @@ function init() {
   			var centroid = path.centroid(stateProp);
 				if (!isNaN(centroid[0]) && !isNaN(centroid[1])) {
 			    const [x, y] = [centroid[0], centroid[1]];
-			    state.races[i].x = x.toFixed(4);
-			    state.races[i].y = y.toFixed(4);
+			    race.x = x.toFixed(4);
+			    race.y = y.toFixed(4);
 			  }
 			  else { // move non found data away
-			    state.races[i].x = -100;
-			    state.races[i].y = -100;			  	
+			    race.x = -100;
+			    race.y = -100;			  	
 			  }
 	  	}
   	})
@@ -148,12 +148,12 @@ function init() {
           d.x,
           d.y
         ],
+			  Name: d.Name,
         White: d.White,
 			  Latino: d.Latino,
 			 	Asian: d.Asian,
 			 	Black: d.Black,
-			 	Other: d.Other,
-			  state: d.geoid
+			 	Other: d.Other
       };
       draw();
     });
@@ -223,10 +223,11 @@ function init() {
  * we call this everytime there is an update to the data/state
  * */
 function draw() {
-  if (state.hover) {
+  if (state.hover.Name) {
     tooltip
       .html(
         `
+        <div><span class="bold">${state.hover.Name}</span></div>
         <div><span class="bold">White:</span> ${state.hover.White}</div>
         <div><span class="bold">Latino:</span> ${state.hover.Latino}</div>
         <div><span class="bold">Asian:</span> ${state.hover.Asian}</div>
