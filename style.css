@@ -1,0 +1,32 @@
+body {
+  /* ref: https://fonts.google.com/specimen/Source+Sans+Pro?selection.family=Source+Sans+Pro */
+  font-family: "Source Sans Pro", sans-serif;
+  padding: 1em 3em;
+}
+
+#hover-content {
+	display: block;
+	height: 48px;
+}
+
+#tooltip {
+  display: block;
+  height: 50px;
+}
+
+.tooltip {
+  display: block;
+  height: fit-content;
+  background-color: white;
+  opacity: 0.8;
+  pointer-events: none;
+  padding: 5px;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+path.state {
+  stroke: black;
+}
